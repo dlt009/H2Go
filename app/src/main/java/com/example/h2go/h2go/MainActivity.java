@@ -38,12 +38,18 @@ public class MainActivity extends AppCompatActivity {
 
     String urlWeather = "http://api.openweathermap.org/data/2.5/weather?";
 
+    public static Integer[] Radius = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+    public static String[] Types = {"Beaches", "Swimming Pools", "Boating", "Snorkeling","Scuba Diving","Surfing"};
+
+    private static Integer radius = 1609;
+    private static double rating = 0;
+    private static String query = "Beaches,Swimming Pools,Boating,Snorkeling,ScubaDiving,Surging";
+
     public static String[] filtered;
 
     private static BroadcastReceiver notice;
 
-    private static int broadcastType = -1;
-    public static boolean filter_done = false;
+    private static boolean filter_Done = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +104,16 @@ public class MainActivity extends AppCompatActivity {
             public void onReceive(Context arg0, Intent intent) {
                 String action = intent.getAction();
                 if(action.equals("filter_done")) {
-
+                    radius = 1609*Integer.parseInt(filtered[0]);
+                    rating = Double.parseDouble(filtered[1]);
+                    String temp = "";
+                    for(int i=0;i<Types.length; i++){
+                        if(filtered[2+i]!=null) {
+                            temp += filtered[2+i]+",";
+                        }
+                    }
+                    query = temp;
+                    filter_Done = true;
                 }
             }
         };

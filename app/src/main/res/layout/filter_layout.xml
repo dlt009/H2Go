@@ -45,31 +45,11 @@
         android:layout_marginTop="12dp"
         android:text="Rating" />
 
-    <Spinner
-        android:id="@+id/filter_list_price"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_below="@id/spinner2"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="8dp"></Spinner>
-
-    <TextView
-        android:id="@+id/filter_text_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/filter_list_price"
-        android:layout_below="@id/spinner2"
-        android:layout_gravity="center"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:text="Price" />
-
     <TextView
         android:id="@+id/filter_text_extra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/filter_list_price"
+        android:layout_below="@+id/filter_text_rating"
         android:layout_gravity="center"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="12dp"
@@ -81,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button_apply"
-        android:layout_below="@id/filter_list_price"
+        android:layout_below="@id/spinner2"
         android:layout_marginStart="62dp"
         android:layout_marginTop="6dp"
         android:layout_weight="0.50"

@@ -20,15 +20,14 @@ import java.util.List;
 
     public class FilterActivity extends ListActivity implements AdapterView.OnItemSelectedListener {
 
-        private Spinner spinnerRadius, spinnerRating, spinnerPrice;
+        private Spinner spinnerRadius, spinnerRating;
         private ListView TypesList;
-        private int numIndeTraits = 3;
-        private int numTypes = 5;
+        private int numIndeTraits = 2;
+        private int numTypes = MainActivity.Types.length;
 
         private static String TAG = "FilterActivity";
 
         private String[] filter;
-        private List<String> prices;
         private List<String> types;
 
     public ArrayList<String> filters = new ArrayList<String>();
@@ -45,9 +44,8 @@ import java.util.List;
             spinnerRating.setOnItemSelectedListener(this);
 
             //takes list of specialized tags from
-            Integer[] Radius = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
-            String[] price = {"n/a", "$", "$$", "$$$"};
-            String[] Types = {"All", "Swimming", "Boating", "Snorkeling/Scuba","Surfing"};
+            Integer[] Radius = MainActivity.Radius;
+            String[] Types = MainActivity.Types;
 
             // Spinner Drop down elements
             List<Integer> radii = new ArrayList<>();
@@ -65,11 +63,6 @@ import java.util.List;
                 types.add(Types[i]);
             }
 
-            prices = new ArrayList<>();
-            for(int i=0; i<price.length; i++){
-                types.add(price[i]);
-            }
-
             //List of radius, rating, price, then Types
             filter = new String[numIndeTraits+numTypes];
 
@@ -78,13 +71,10 @@ import java.util.List;
                     android.R.layout.simple_spinner_item, radii);
             ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<>(this,
                     android.R.layout.simple_spinner_item, ratings);
-            ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<>(this,
-                    android.R.layout.simple_spinner_item, prices);
 
             // Drop down layout style - list view with radio button
             dataAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            dataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             // attaching data adapter to spinner
             spinnerRadius.setAdapter(dataAdapter1);
@@ -105,20 +95,6 @@ import java.util.List;
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     filter[1]= Double.toString(((double)(position)));
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                }
-            });
-
-            //Set the price
-            spinnerPrice = (Spinner) findViewById(R.id.filter_list_price);
-            spinnerPrice.setAdapter(dataAdapter3);
-            spinnerPrice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    filter[2]= prices.get(position);
                 }
 
                 @Override
@@ -160,7 +136,6 @@ import java.util.List;
             filter[position] = types.get(position-1);
         }
         public void onNothingSelected(AdapterView<?> arg0) {
-            filter[numIndeTraits] = types.get(0);
         }
 
 
