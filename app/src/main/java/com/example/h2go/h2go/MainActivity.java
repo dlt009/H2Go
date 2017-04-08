@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +24,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,8 +92,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //setSupportActionBar(toolbar);
+        toolbar.setTitle("H2Go");
+/*
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        //final ListView drawerList = (ListView) findViewById(R.id.drawer_list);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        assert drawer != null;
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+        */
+        //drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.listitemlayout, Types));
+
+        DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+                toolbar,R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
@@ -138,6 +161,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 JsonObjectRequest getRequest = yelpReq(newUrl);
                 queue.add(getRequest);
                 queue.add(weatherReq(urlWeather + "q=San_Diego" + "&APPID=e645777286ee1242f55c2205a776402a"));
+            }
+        });
+        FloatingActionButton fabio = (FloatingActionButton) findViewById(R.id.filterFab);
+        fabio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                IntentFilter inFilter = new IntentFilter();
+                inFilter.addAction("filter_done");
+                registerReceiver(notice, inFilter);
+
+                Intent filtering = new Intent(getApplicationContext(), FilterActivity.class);
+                startActivity(filtering);
             }
         });
         notice = new BroadcastReceiver() {
