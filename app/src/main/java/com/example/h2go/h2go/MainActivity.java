@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 try {
                     int tot = (int) response.get("total");
                     if (tot > 19) tot = 19;
-                    
+
                     for (int i = 0; i < tot; i++) {
                         System.out.println("Name: " + ((JSONObject) ((JSONArray) response.get("businesses")).get(i)).get("id"));
                         System.out.println("Rating: " + ((JSONObject) ((JSONArray) response.get("businesses")).get(i)).get("rating"));
@@ -198,8 +198,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         else
                             System.out.println("Price: Not Applicable");
                         System.out.println("Closed: " + ((JSONObject) ((JSONArray) response.get("businesses")).get(i)).get("is_closed"));
-                        System.out.println("Latitude: " + ((JSONObject) ((JSONObject) ((JSONArray) response.get("businesses")).get(i)).get("coordinates")).get("latitude"));
-                        System.out.println("Longitude: " + ((JSONObject) ((JSONObject) ((JSONArray) response.get("businesses")).get(i)).get("coordinates")).get("longitude"));
+                        double lat = (double)((JSONObject) ((JSONObject) ((JSONArray) response.get("businesses")).get(i)).get("coordinates")).get("latitude");
+                        double lon = (double)((JSONObject) ((JSONObject) ((JSONArray) response.get("businesses")).get(i)).get("coordinates")).get("longitude");
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(new LatLng(lat, lon));
+                        markerOptions.title((String)((JSONObject) ((JSONArray) response.get("businesses")).get(i)).get("id"));
+                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN));
+                        mMap.addMarker(markerOptions);
                     }
                 } catch (JSONException e) {
                     System.out.println(e);
@@ -326,7 +331,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         CircleOptions options = new CircleOptions()
                 .center(latlng)
                 .radius(radius)
-                .strokeColor(Color.BLACK)
+                //.strokeColor(Color.BLACK)
                 .strokeWidth(3);
         return mMap.addCircle(options);
     }
