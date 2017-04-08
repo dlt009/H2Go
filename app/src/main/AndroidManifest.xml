@@ -14,11 +14,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@android:style/Theme.NoTitleBar">
         <activity
-            android:name=".MainActivity"
+            android:name=".MapsActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,7 +38,7 @@
             android:value="@string/AIzaSyAeJxEf1_BAik2lopFCeIXmrTPw7IWZMwg" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name=".MainActivity"
             android:label="@string/title_activity_maps"></activity>
     </application>
 

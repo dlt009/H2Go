@@ -5,11 +5,26 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    public static String[] filtered;
+
+    private static BroadcastReceiver notice;
+
+    private static int broadcastType = -1;
+    public static boolean filter_done = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        notice = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context arg0, Intent intent) {
+                String action = intent.getAction();
+                if(action.equals("filter_done")) {
+                    
+                }
+            }
+        };
     }
 
     @Override
@@ -49,4 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
